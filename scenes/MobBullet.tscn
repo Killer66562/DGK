@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/Bullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/MobBullet.gd" type="Script" id=2]
+[ext_resource path="res://assets/circle_bullet.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 4.0
+
+[node name="MobBullet" groups=[
+"mob_bullet",
+] instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource( 1 )
+[connection signal="area_entered" from="." to="." method="_on_MobBullet_area_entered"]

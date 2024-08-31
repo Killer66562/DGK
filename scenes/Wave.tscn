@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/Wave.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Mob.tscn" type="PackedScene" id=2]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0.993942, 0.996056, 0, 0, 0, 0, 38.7032, 65.0684, 0, 0, 0, 0, 106.113, 90.0966, 0, 0, 0, 0, 177.193, 66.7369, 0, 0, 0, 0, 207.894, 0.662346 )
+}
+
+[node name="Wave" type="Node2D"]
+script = ExtResource( 1 )
+Mob = ExtResource( 2 )
+
+[node name="MobSpawnPath" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="MobSpawnPath"]
+position = Vector2( 0.993942, 0.996056 )
+rotation = 1.03884
+
+[node name="MobSpawnTimer" type="Timer" parent="."]
+
+[node name="WaveTimeoutTimer" type="Timer" parent="."]
+one_shot = true
+[connection signal="wave_end" from="." to="." method="_on_Wave_wave_end"]
+[connection signal="timeout" from="MobSpawnTimer" to="." method="_on_MobSpawnTimer_timeout"]
+[connection signal="timeout" from="WaveTimeoutTimer" to="." method="_on_WaveTimeoutTimer_timeout"]
